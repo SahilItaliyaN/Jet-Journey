@@ -12,66 +12,66 @@ app.use(cors())
 
 
 
-const Upload = multer({dest: 'upload/'});
+// const Upload = multer({dest: 'upload/'});
 
-const upload = multer({
-    storage:multer.diskStorage({
-        destination:function(req,file,cb)
-        {
-            cb(null,'public/uploads')
-        },
-        filename:function(req,file,cb)
-        {
-            cb(null,file.fieldname + '-'+Date.now() + path.extname(file.originalname))
-        }
-    })
-}).single("file")
+// const upload = multer({
+//     storage:multer.diskStorage({
+//         destination:function(req,file,cb)
+//         {
+//             cb(null,'public/uploads')
+//         },
+//         filename:function(req,file,cb)
+//         {
+//             cb(null,file.fieldname + '-'+Date.now() + path.extname(file.originalname))
+//         }
+//     })
+// }).single("file")
 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.post('/upload',upload,(req,res)=>{
-    res.send("file upload")
-    upload(req, res, async (err) => {
-        if (err) {
-            return res.status(500).send({ success: false, message: err.message });
-        }
-        if (!req.file) {
-            return res.status(400).send({ success: false, message: 'No file received' });
-        }
-        const host = req.get('host');
-        const filePath = req.protocol + "://" + host + 'public/uploads/' + req.file.filename;
-        res.send({ success: true, filePath: filePath });
+// app.post('/upload',upload,(req,res)=>{
+//     res.send("file upload")
+//     upload(req, res, async (err) => {
+//         if (err) {
+//             return res.status(500).send({ success: false, message: err.message });
+//         }
+//         if (!req.file) {
+//             return res.status(400).send({ success: false, message: 'No file received' });
+//         }
+//         const host = req.get('host');
+//         const filePath = req.protocol + "://" + host + 'public/uploads/' + req.file.filename;
+//         res.send({ success: true, filePath: filePath });
 
-        const flightid = req.body.flightid; // Example way to pass the product ID
+//         const flightid = req.body.flightid; // Example way to pass the product ID
 
-        if (!flightid) {
-            return res.status(400).send({ success: false, message: 'Product ID is required' });
-        }
+//         if (!flightid) {
+//             return res.status(400).send({ success: false, message: 'Product ID is required' });
+//         }
 
-        try {
-            // Update the product with the new file path
-            let flight =new Flight(req.body)
-            let result = await flight.save();
-            result = result.toObject();
-            res.send(result)
+//         try {
+//             // Update the product with the new file path
+//             let flight =new Flight(req.body)
+//             let result = await flight.save();
+//             result = result.toObject();
+//             res.send(result)
 
-            let result2 = await Flight.findByIdAndUpdate(
-                flightid,
-                { imagePath: filePath },
-                { new: true } // Return the updated document
-            );
+//             let result2 = await Flight.findByIdAndUpdate(
+//                 flightid,
+//                 { imagePath: filePath },
+//                 { new: true } // Return the updated document
+//             );
             
-            if (!result2) {
-                return res.status(404).send({ success: false, message: 'Product not found' });
-            }
+//             if (!result2) {
+//                 return res.status(404).send({ success: false, message: 'Product not found' });
+//             }
 
-            res.send({ success: true, filePath: filePath, product: result });
-        } catch (error) {
-            res.status(500).send({ success: false, message: 'Server Error' });
-        }
-    });
-});
+//             res.send({ success: true, filePath: filePath, product: result });
+//         } catch (error) {
+//             res.status(500).send({ success: false, message: 'Server Error' });
+//         }
+//     });
+// });
 
 app.post("/flight",async (req,res)=>{
     let flight =new Flight(req.body)
@@ -82,7 +82,7 @@ app.post("/flight",async (req,res)=>{
 
 app.get('/flightslist',async (req,res)=>{
     let flights = await Flight.find();
-    if(flights.length>0){
+    if(flights){
         res.send(flights)
     }else{
         res.send({result:"No flights Found"})
