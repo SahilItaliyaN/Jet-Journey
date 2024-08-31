@@ -1,0 +1,41 @@
+.plane2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff3d9;
+    padding: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    height: 45px;
+    transition: all ease .3s;
+    margin-right: 20px;
+    margin-bottom: 8px;
+}
+
+.bus2 {
+    filter: invert();
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    height: 45px;
+    margin-right: 20px;
+}
+
+.plane2:hover {
+    background-color: #ffffff;
+    filter: saturate();
+    filter: invert();
+}
+
+.plane2 img {
+    width: 50px;
+}
+.bus2 img {
+    width: 60px;
+}

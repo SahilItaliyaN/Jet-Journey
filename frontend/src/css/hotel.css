@@ -1,0 +1,45 @@
+.plane3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff3d9;
+    padding: 30px;
+    border-top-left-radius: 30px;
+    transition: all ease .3s;
+    border-bottom-left-radius: 30px;
+    height: 45px;
+    margin-right: 20px;
+    margin-bottom: 8px;
+}
+
+.plane3 img {
+    width: 50px;
+}
+
+.plane3:hover {
+    background-color: #ffffff;
+    filter: saturate();
+    filter: invert();
+}
+
+.hotel3 {
+    filter: invert();
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    height: 45px;
+    margin-bottom: 8px;
+    margin-right: 20px;
+
+}
+
+.hotel3 img {
+    margin-top: 5px;
+    width: 50px;
+}

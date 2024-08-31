@@ -37,7 +37,6 @@ header {
 
 .logo img {
     width: 150px;
-
 }
 
 nav {
@@ -260,8 +259,9 @@ nav ul li a {
     filter: invert();
 }
 
+/* PAGE 1 :FLIGHT CONTENT  */
+
 .hero-content {
-    /* position: relative; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -271,7 +271,7 @@ nav ul li a {
 }
 
 .hero-left {
-    top: -40px;
+    top: -70px;
     width: 40%;
     position: relative;
 }
@@ -307,30 +307,39 @@ nav ul li a {
 .search-box input::placeholder {
     font-size: 60px;
 }
-.line{
+
+.line {
     background-color: #000;
     width: 2px;
     height: 17em;
     margin-left: -30px;
     position: absolute;
 }
-.line2{
+
+.line2 {
     background-color: #000;
     width: 2px;
     height: 4em;
     margin-left: -22px;
-    /* position: absolute; */
+}
+.line3 {
+    background-color: #000;
+    width: 1.5px;
+    height: 5em;
+    margin-left: 3px;
 }
 
 .hero-right {
     width: 50%;
     font-size: 20px;
 }
-.trip-type{
+
+.trip-type {
     font-weight: 700;
 
 }
-.dates{
+
+.dates {
     font-weight: 600;
     display: flex;
     flex-direction: row;
@@ -339,57 +348,76 @@ nav ul li a {
     gap: 30px;
     font-size: 1.5rem;
 }
-.CandT{
+
+.CandT {
     font-size: 1.5rem;
     display: flex;
     flex-direction: row;
     position: relative;
     top: 70px;
 }
-.class{
-    display: flex;
-    font-weight: 600;
-    flex-direction: column;
+
+.radio-toolbar {
     position: relative;
-    left: 24px;
-    /* padding: 0px 20px; */
+    bottom: 50px;
 }
-.travellers{
+
+.radio-toolbar h4 {
+    position: relative;
+    top: 18px;
+    left: 10px;
+}
+
+.radio-toolbar input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.radio-toolbar label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    margin-top: 10px;
+    position: relative;
+    left: 15px;
+    border: 1px solid #000000;
+    height: 35px;
+    padding: 0px 20px;
+    font-weight: bolder;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.radio-toolbar input[type="radio"]:checked+label {
+    background-color: rgb(0, 0, 0);
+    color: #fff3d9;
+}
+
+
+.radio-toolbar label:hover {
+    background-color: rgb(210, 210, 210);
+}
+
+.travellers {
     left: 110px;
     display: flex;
     flex-direction: column;
     position: relative;
     font-weight: 600;
 }
-.travellers input{
+
+.travellers input {
     position: relative;
     top: 20px;
     left: 25px;
 }
-.class button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 20px;
-    margin-top: 10px;
-    width: 150px;
-    height: 35px;
-    border: 2px solid #000;
-    border-radius: 10px;
-    color: #000000;
-    text-decoration: none;
-    font-weight: bold;
-    transition: all ease .2s;
-}
 
-.class button:hover {
-    background-color: #000000;
-    color: #fff3d9;
-}
-
-.trip-type input:checked ~ .checkmark {
+.trip-type input:checked~.checkmark {
     background-color: #2196F3;
-  }
+}
 
 .trip-type input[type="radio"],
 .trip-type label {
@@ -405,22 +433,16 @@ nav ul li a {
     margin-right: 10px;
 }
 
-.class select {
-    width: 150px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
 .travellers input[type="number"] {
     width: 50px;
     padding: 5px;
+    height: 50px;
+    font-size: 1.3rem;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-.searchbtn button{
+.searchbtn button {
     background-color: #000000;
     position: absolute;
     padding: 20px 35px;
@@ -447,10 +469,18 @@ nav ul li a {
 }
 
 .card {
+    cursor: pointer;
     background-color: #fff;
     padding: 20px;
+    border: 1.5px dashed black;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    border: 2px dashed #fff3d9;
+    background-color: #000;
+    color: #fff3d9;
 }
 
 .card img {
@@ -459,7 +489,8 @@ nav ul li a {
     object-fit: cover;
     border-radius: 20px;
 }
-.card h3{
+
+.card h3 {
     width: 200px;
     font-size: 1em;
     font-weight: 900;
@@ -475,6 +506,537 @@ nav ul li a {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
+
+/* Page 2: BUS CONTENT  */
+
+.hero-content2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-left2 {
+    top: -50px;
+    width: 40%;
+    position: relative;
+}
+
+.search-box2 {
+    position: absolute;
+    padding: 55px;
+    border-radius: 10px;
+    font-size: 20px;
+    top: -190px;
+    left: -2em;
+}
+
+.search-box2 input {
+    font-weight: bolder;
+    padding: 10px;
+    border: none;
+    width: 20rem;
+    border-radius: 20px;
+    margin-top: -4rem;
+    font-size: 50px;
+    background: none;
+}
+
+.search-box2 label {
+    display: flex;
+    margin-left: -3rem;
+    padding: 50px;
+}
+
+.search-box2 input::placeholder {
+    font-size: 60px;
+}
+
+
+.hero-right2 {
+    width: 50%;
+    font-size: 20px;
+}
+
+.dates2 {
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 50px;
+    gap: 30px;
+    font-size: 1.5rem;
+}
+
+.radio-toolbarAC {
+    position: relative;
+    bottom: 10px;
+    right: 10px;
+}
+
+.radio-toolbarAC input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.radio-toolbarAC label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    margin-top: 10px;
+    position: relative;
+    left: 15px;
+    border: 1px solid #000000;
+    height: 35px;
+    padding: 0px 20px;
+    font-weight: bolder;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.radio-toolbarAC input[type="radio"]:checked+label {
+    background-color: rgb(0, 0, 0);
+    color: #fff3d9;
+}
+
+
+.radio-toolbarAC label:hover {
+    background-color: rgb(210, 210, 210);
+}
+
+.CandT2 {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 70px;
+}
+
+.radio-toolbar2 {
+    position: relative;
+    bottom: 50px;
+}
+
+.radio-toolbar2 h4 {
+    position: relative;
+    top: 18px;
+    left: 10px;
+}
+
+.radio-toolbar2 input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+.radio-toolbar2 label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    margin-top: 10px;
+    position: relative;
+    left: 15px;
+    border: 1px solid #000000;
+    height: 35px;
+    padding: 0px 20px;
+    font-weight: bolder;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.radio-toolbar2 input[type="radio"]:checked+label {
+    background-color: rgb(0, 0, 0);
+    color: #fff3d9;
+}
+
+
+.radio-toolbar2 label:hover {
+    background-color: rgb(210, 210, 210);
+}
+
+.travellers2 {
+    left: 110px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-weight: 600;
+}
+
+.travellers2 input {
+    position: relative;
+    top: 20px;
+    left: 25px;
+}
+
+
+.dates2 input[type="date"] {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+
+.travellers2 input[type="number"] {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.searchbtn2 button {
+    background-color: #000000;
+    position: absolute;
+    padding: 20px 35px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    z-index: 10;
+    color: #fff3d9;
+    font-size: 1.5em;
+    font-weight: 900;
+    top: -30px;
+    margin-left: -250px;
+}
+
+.destinations {
+    display: grid;
+    grid-template-columns: repeat(3, .9fr);
+    gap: 10px;
+}
+
+.destination:hover {
+    background-color: #000000;
+}
+
+.destination:hover .destination-title {
+    color: #fff3d9;
+}
+
+.destination:hover .destination-description {
+    color: #fff3d9;
+}
+
+.destination {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    padding: 10px;
+    border: 2px dashed #ffdecb;
+    border-radius: 5px;
+    transition: all ease-in-out .2s;
+}
+
+.d2 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.destination-image {
+    width: 5em;
+    height: 5em;
+    object-fit: cover;
+    background-position: center;
+    border-radius: 5px;
+}
+
+.destination-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.destination-description {
+    margin-top: 5px;
+    font-size: .72rem;
+    text-align: center;
+}
+
+
+/* Page 3:HOTEL CONTENT  */
+
+.hero-content3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-left3 {
+    top: -70px;
+    width: 40%;
+    position: relative;
+}
+
+.search-box3 {
+    position: absolute;
+    padding: 55px;
+    border-radius: 10px;
+    font-size: 20px;
+    top: -190px;
+    left: -2em;
+}
+
+.search-box3 input {
+    font-weight: bolder;
+    padding: 10px;
+    border: none;
+    width: 20rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+    font-size: 50px;
+    background: none;
+}
+
+.to3 p {
+    right: 4.8rem;
+    padding: 60px;
+    position: relative;
+    top: 50px;
+    font-size: .7rem;
+}
+
+.search-box3 input::placeholder {
+    font-size: 80px;
+}
+
+.to3 h4 {
+    font-size: 1em;
+    position: relative;
+    top: 7em;
+}
+
+.hero-right3 {
+    width: 50%;
+    font-size: 20px;
+}
+
+.dates3 {
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 50px;
+    gap: 30px;
+    font-size: 1.5rem;
+}
+
+.CandT3 {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    top: 70px;
+}
+
+
+.travellers3 {
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-weight: 600;
+}
+
+.travellers3 input {
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+.rooms input {
+    position: relative;
+    top: 20px;
+}
+
+.rooms {
+    left: 40px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-weight: 600;
+
+}
+
+
+.dates3 input[type="date"] {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.travellers3 input[type="number"] {
+    width: 70px;
+    height: 50px;
+    font-size: 1.3rem;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.rooms input[type="number"] {
+    width: 70px;
+    font-size: 1.3rem;
+    height: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.searchbtn3 button {
+    background-color: #000000;
+    position: absolute;
+    padding: 20px 35px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    z-index: 10;
+    color: #fff3d9;
+    font-size: 1.5em;
+    font-weight: 900;
+    top: -30px;
+    margin-left: -250px;
+}
+
+.mainhotel-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 80%;
+    height: 80%;
+    margin-left: 150px;
+    margin-top: 80px;
+}
+
+.hoteltitle {
+    position: relative;
+    right: -30px;
+    top: 80px;
+}
+
+.hotelsubtitle {
+    position: relative;
+    top: 60px;
+    left: 30px;
+    font-size: .7rem;
+}
+
+.hotel-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 90%;
+    height: 70%;
+    border: 3px dashed #000000;
+    overflow: hidden;
+    margin-bottom: -100px;
+    transition: all ease .2s;
+}
+
+.hotel-card:hover {
+    background-color: #000000;
+    border: 3px dashed #fff3d9;
+    color: #fff3d9;
+}
+
+.hotel-card:hover .content .price {
+    background-color: #fff3d9;
+    border: 3px dashed #000000;
+    color: #000000;
+}
+
+.hotel-card .image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 30em;
+    overflow: hidden;
+    border-radius: 10px 10px 0 0;
+}
+
+.hotel-card .image img {
+    width: 500px;
+    object-fit: cover;
+    background-position: bottom;
+}
+
+.hotel-card .content {
+    padding: 10px 30px;
+}
+
+.hotel-card .content h2 {
+    font-size: 1.5em;
+    line-height: 28px;
+    margin-bottom: -20px;
+}
+
+.hotel-card .content p {
+    width: 100%;
+    margin-bottom: -10px;
+    font-size: 0.9em;
+}
+
+.hotel-card .content .rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: -20px;
+    position: relative;
+}
+
+.hotel-card .content .rating .star {
+    color: #ffae00;
+    font-size: 1.7em;
+}
+
+.hotel-card .content .price {
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    color: #fff3d9;
+    width: 15em;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.hotel-card .content .price span {
+    font-size: .5em;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* FOOTER  */
 
 .footer {
     background-color: #000000;
@@ -531,7 +1093,8 @@ nav ul li a {
     border-radius: 5px;
     cursor: pointer;
 }
-.footerlogo{
+
+.footerlogo {
     filter: saturate();
     filter: invert();
     scale: .4;
@@ -539,6 +1102,7 @@ nav ul li a {
     left: -60px;
     position: relative;
 }
+
 .footcontainer {
     color: #fff3d9;
     display: flex;
@@ -720,10 +1284,12 @@ nav ul li a {
     transition: all 0.3s ease;
     width: 8rem;
 }
-.right button a{
+
+.right button a {
     color: #fff3d9;
 }
-.right button:hover a{
+
+.right button:hover a {
     color: #000;
 }
 
@@ -883,10 +1449,12 @@ nav ul li a {
     transition: all 0.3s ease;
     width: 8rem;
 }
-.regright button a{
+
+.regright button a {
     color: #fff3d9;
 }
-.regright button:hover a{
+
+.regright button:hover a {
     color: #000;
 }
 

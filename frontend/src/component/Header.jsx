@@ -16,11 +16,11 @@ const Header = () => {
                         <li><Link to="#" className="navbtn">My Tickets</Link></li>
                     </div>
                     <div className="logo">
-                        <Link to="index.html"><img src={Logo} alt="Jet Journey" /></Link>
+                        <Link to="/"><img src={Logo} alt="Jet Journey" /></Link>
                     </div>
                     <div className="navright">
-                        <li><Link to="Login.html" className="loginbtn">Login</Link></li>
-                        <li><Link to="#" className="navbtn">About</Link></li>
+                        <li><Link to="login" className="loginbtn">Login</Link></li>
+                        <li><Link to="/" className="navbtn">About</Link></li>
                     </div>
                 </ul>
             </nav>

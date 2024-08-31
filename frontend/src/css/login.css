@@ -1,0 +1,21 @@
+loginform{
+    font-family: poppins;
+    background-color: #fff;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+regform {
+    font-family: poppins;
+    background-color: #fff;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}

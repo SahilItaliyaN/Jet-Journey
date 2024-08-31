@@ -1,9 +1,10 @@
 import React from 'react'
+import Searchpannel from './Searchpannel'
 
 const FlightBooking = () => {
     return (
         <div>
-            <h2>Hello......</h2>
+            <Searchpannel />
         </div>
     )
 }
