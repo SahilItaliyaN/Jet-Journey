@@ -89,11 +89,7 @@ const Buspage = () => {
                                         Hotels
                                     </div>
                                 </Link>
-                                <Link to="/bu
-                                
-                                
-                                
-                                sepage">
+                                <Link to="/buspage">
                                     <div className="bus2">
                                         <img src={busImg} alt="Bus Icon" />
                                         Buses

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../style.css'
+import '../css/style.css'
 import { Link } from 'react-router-dom'
 import logo from './Images/Logo/logo.svg';  // Imported logo for the footer
 

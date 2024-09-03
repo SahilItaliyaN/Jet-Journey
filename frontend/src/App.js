@@ -20,7 +20,7 @@ function App() {
           <Route path="/flightbooking" element={<FlightBooking />} />
           <Route path="/flights" element={<FlightList />} />
           <Route path="/hotelpage" element={<Hotelpage />} />
-          <Route path="/busepage" element={<Buspage />} />
+          <Route path="/buspage" element={<Buspage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

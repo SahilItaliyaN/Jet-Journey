@@ -98,10 +98,10 @@ app.post("/register",async(req,res)=>{
 })
 
 app.post('/login', async (req,res)=>{
-    const { email, password } = req.body;
-    if (email && password) {
+    const { username, password } = req.body;
+    if (username && password) {
         try {
-            const user = await User.findOne({ email, password }).select("-password");
+            const user = await User.findOne({ username, password }).select("-password");
 
             if (user) {
                 res.send(user);
@@ -116,6 +116,9 @@ app.post('/login', async (req,res)=>{
     }
 })
 
+
+
+// PRODUCT API
 app.post('/add-product', async (req,res)=>{
     let product = new Product(req.body);
     let result = await product.save();

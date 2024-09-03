@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../style.css'; // Import your CSS file here
+import '../css/style.css'
 import { useState } from 'react';
 import firstback2 from './Images/Backgrounds/firstback2.png'
 import plane from './Images/Icon/plane.svg'

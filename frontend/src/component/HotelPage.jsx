@@ -8,8 +8,8 @@ import tajHotelImg from './Images/Backgrounds/taj hotel.avif';
 import wildflowerImg from './Images/Backgrounds/wildflower.jpg';
 import udaivilasImg from './Images/Backgrounds/udaivilas.jpg';
 import tajSkylineImg from './Images/Backgrounds/taj skyline.webp';
-import './../css/hotel.css'
-import '../style.css'; // Import your CSS file here
+import '../css/style.css' // Import your CSS file here
+import '../css/hotel.css'
 
 const Hotelpage = () => {
   return (
@@ -74,7 +74,7 @@ const Hotelpage = () => {
                     Hotels
                   </div>
                 </Link>
-                <Link to="/busepage">
+                <Link to="/buspage">
                   <div className="bus">
                     <img src={busImg} alt="Bus Icon" />
                     Buses
