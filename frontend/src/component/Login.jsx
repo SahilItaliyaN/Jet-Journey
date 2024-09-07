@@ -3,19 +3,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import './../css/login.css';
 import '../css/style.css'
 import logoImg from './Images/Logo/jj.png';
+import useAuthStore from './store/authstore';
 
 const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
+    const loginUser = useAuthStore((state) => state.login)
 
     useEffect(() => {
-        const auth = localStorage.getItem('user');
+        const auth = localStorage.getItem('user-info');
         if (auth) {
             navigate('/')
         }
-    }, [navigate])
+    }, [])
 
     const handleLogin = async () => {
         console.log(username, password);
@@ -29,7 +31,8 @@ const Login = () => {
         result = await result.json();
         console.log(result)
         if (result) {
-            localStorage.setItem("user", JSON.stringify(result))
+            localStorage.setItem("user-info", JSON.stringify(result))
+            loginUser(result); 
             navigate('/')
         } else {
             alert("Enter Correct Details")
@@ -38,7 +41,7 @@ const Login = () => {
 
     return (
         <div>
-            <loginform>
+            <div className='loginform2'>
                 <div className="main-login">
                     <div className="login-container">
                         <div className="left">
@@ -64,7 +67,7 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-            </loginform>
+            </div>
         </div>
     );
 };

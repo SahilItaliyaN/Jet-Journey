@@ -9,7 +9,8 @@ const FlightBookingSchema = new mongoose.Schema({
     arrival_city:String,
     arrival_time:Date,
     flight_duration:String,
-    price:Number
+    price:Number,
+    userid:String
 });
 
 module.exports = mongoose.model("flights",FlightBookingSchema);

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import firstback2 from './Images/Backgrounds/firstback2.png';
 import planeImg from './Images/Icon/plane.svg';
 import busImg from './Images/Icon/bus.svg';
@@ -12,6 +12,14 @@ import '../css/style.css' // Import your CSS file here
 import '../css/hotel.css'
 
 const Hotelpage = () => {
+
+  const [hotel, setHotel] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () =>{
+    navigate(`/searchh/${hotel}`);
+  }
+
   return (
     <div>
       <main>
@@ -29,7 +37,7 @@ const Hotelpage = () => {
                         <div className="to3">
                           <h4>City, Property Name or Location</h4>
                           <p>Which Place you want to Visit</p>
-                          <input type="text" id="to" placeholder="SURAT" />
+                          <input type="text" id="to" placeholder="SURAT" value={hotel} onChange={(e)=>setHotel(e.target.value)} />
                         </div>
                       </div>
                     </div>
@@ -82,7 +90,7 @@ const Hotelpage = () => {
                 </Link>
               </div>
             </div>
-            <div className="searchbtn">
+            <div className="searchbtn" onClick={handleSearch}>
               <button>Search</button>
             </div>
           </div>

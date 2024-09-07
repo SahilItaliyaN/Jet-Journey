@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './../css/login.css';
 import '../css/style.css'
 import logoImg from './Images/Logo/jj.png';
+import useAuthStore from './store/authstore';
 
 const Register = () => {
 
@@ -13,9 +14,10 @@ const Register = () => {
     const [username, setUsername] = useState(''); // Username
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const authuser = useAuthStore(state => state.login)
 
     useEffect(() => {
-        const auth = localStorage.getItem('user');
+        const auth = localStorage.getItem('user-info');
         if (auth) {
             navigate('/');
         }
@@ -32,9 +34,10 @@ const Register = () => {
             }
         });
         result = await result.json();
+        authuser(result)
         console.log(result);
         if (result) {
-            localStorage.setItem("user", JSON.stringify(result));
+            localStorage.setItem("user-info", JSON.stringify(result));
             navigate('/');
         }
         } catch (error) {
@@ -45,7 +48,7 @@ const Register = () => {
 
     return (
         <div>
-            <regform>
+            <div className='regform2'>
                 <div className="main-login">
                     <div className="reg-container">
                         <div className="regleft">
@@ -82,7 +85,7 @@ const Register = () => {
                         </div>
                     </div>
                 </div>
-            </regform>
+            </div>
         </div>
     );
 };

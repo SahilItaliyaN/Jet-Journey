@@ -1,4 +1,4 @@
-loginform{
+.loginform2{
     font-family: poppins;
     background-color: #fff;
     display: flex;
@@ -9,7 +9,7 @@ loginform{
     margin: 0;
 }
 
-regform {
+.regform2 {
     font-family: poppins;
     background-color: #fff;
     display: flex;

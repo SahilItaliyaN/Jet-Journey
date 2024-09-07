@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/style.css'
 import { useState } from 'react';
 import firstback2 from './Images/Backgrounds/firstback2.png'
@@ -10,6 +10,13 @@ const Searchpannel = () => {
   const [tripType, setTripType] = useState('round-trip');
   const [classType, setClassType] = useState('economy');
   const [travellers, setTravellers] = useState(1);
+  const [departurePlace, setDeparturePlace] = useState('');
+  const [arrivalCity, setArrivalCity] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () =>{
+    navigate(`/searchf/${departurePlace || arrivalCity}`);
+  }
 
   return (
     <div>
@@ -26,11 +33,11 @@ const Searchpannel = () => {
                     <div className="search-box">
                       <div className="from">
                         <label htmlFor="from">From</label>
-                        <input type="text" id="from" placeholder="SURAT" />
+                        <input type="text" id="from" placeholder="SURAT" value={departurePlace} onChange={(e)=>setDeparturePlace(e.target.value)} />
                       </div>
                       <div className="to">
                         <label htmlFor="to">To</label>
-                        <input type="text" id="to" placeholder="MUMBAI" />
+                        <input type="text" id="to" placeholder="MUMBAI" value={arrivalCity} onChange={(e)=>setArrivalCity(e.target.value)} />
                       </div>
                     </div>
                   </div>
@@ -127,7 +134,7 @@ const Searchpannel = () => {
             </div>
           </div>
           <div className="searchbtn">
-            <button>Search</button>
+            <button onClick={handleSearch}>Search</button>
           </div>
         </div>
       </section>

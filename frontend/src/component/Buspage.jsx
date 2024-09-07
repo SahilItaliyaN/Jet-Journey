@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './../css/bus.css';
 import firstback2 from './Images/Backgrounds/firstback2.png';
 import planeImg from './Images/Icon/plane.svg';
@@ -20,6 +20,15 @@ import goaImg from './Images/Backgrounds/goa.jpg';
 import shimlaImg from './Images/Backgrounds/shimla.jpg';
 
 const Buspage = () => {
+
+    const [departurePlace, setDeparturePlace] = useState('');
+    const [arrivalCity, setArrivalCity] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        navigate(`/searchb/${departurePlace || arrivalCity}`);
+    }
+
     return (
         <div>
             <main>
@@ -36,11 +45,11 @@ const Buspage = () => {
                                             <div className="search-box2">
                                                 <div className="from">
                                                     <label htmlFor="from">From</label>
-                                                    <input type="text" id="from" placeholder="SURAT" />
+                                                    <input type="text" id="from" placeholder="SURAT" value={departurePlace} onChange={(e)=>setDeparturePlace(e.target.value)}  />
                                                 </div>
                                                 <div className="to">
                                                     <label htmlFor="to">To</label>
-                                                    <input type="text" id="to" placeholder="MUMBAI" />
+                                                    <input type="text" id="to" placeholder="MUMBAI" value={arrivalCity} onChange={(e)=>setArrivalCity(e.target.value)}/>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +106,7 @@ const Buspage = () => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="searchbtn">
+                        <div className="searchbtn" onClick={handleSearch}>
                             <button>Search</button>
                         </div>
                     </div>

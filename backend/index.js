@@ -6,6 +6,8 @@ const path = require('path');
 const User = require('./db/User');
 const Product = require('./db/Product');
 const Flight = require('./db/FlightBooking')
+const Bus = require('./db/BusBooking')
+const Hotel = require('./db/HotalBooking')
 const app = express();
 app.use(express.json())
 app.use(cors())
@@ -89,6 +91,50 @@ app.get('/flightslist',async (req,res)=>{
     }
 })
 
+app.get("/searchflight/:key", async(req,res)=>{
+    try {
+        const result = await Flight.find({
+            "$or": [
+                { departure_place: { $regex: req.params.key, $options: 'i' } },
+                { arrival_city: { $regex: req.params.key, $options: 'i' } }
+            ]
+        });
+        res.json(result);  // Ensure you're sending JSON response
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+})
+
+app.get("/searchbus/:key", async(req,res)=>{
+    try {
+        const result = await Bus.find({
+            "$or": [
+                { departure_place: { $regex: req.params.key, $options: 'i' } },
+                { arrival_city: { $regex: req.params.key, $options: 'i' } }
+            ]
+        });
+        res.json(result);  // Ensure you're sending JSON response
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+})
+
+app.get("/searchhotel/:key", async(req,res)=>{
+    try {
+        const result = await Bus.find({
+            "$or": [
+                { hotal_city: { $regex: req.params.key, $options: 'i' } }
+            ]
+        });
+        res.json(result);  // Ensure you're sending JSON response
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+})
+
 app.post("/register",async(req,res)=>{
     let user = new User(req.body)
     let result = await user.save();
@@ -161,16 +207,16 @@ app.put("/product/:id", async (req,res)=>{
     res.send(result);
 })
 
-app.get("/search/:key", async(req,res)=>{
-    let result = await Product.find({
-        "$or":[
-            {name:{$regex:req.params.key}},
-            {category:{$regex:req.params.key}},
-            {company:{$regex:req.params.key}}
-        ]
-    })
-    res.send(result);
-})
+// app.get("/search/:key", async(req,res)=>{
+//     let result = await Product.find({
+//         "$or":[
+//             {name:{$regex:req.params.key}},
+//             {category:{$regex:req.params.key}},
+//             {company:{$regex:req.params.key}}
+//         ]
+//     })
+//     res.send(result);
+// })
 
 
 app.listen(5000)

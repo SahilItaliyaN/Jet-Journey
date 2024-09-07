@@ -7,6 +7,7 @@ const HotelBookingSchema = new mongoose.Schema({
     duration:String,
     address:String,
     price:Number,
+    userid:String
 })
 
-module.exports = mongoose.model("hotal",HotelBookingSchema);
+module.exports = mongoose.model("hotals",HotelBookingSchema);
