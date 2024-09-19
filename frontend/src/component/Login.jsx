@@ -30,7 +30,7 @@ const Login = () => {
         });
         result = await result.json();
         console.log(result)
-        if (result) {
+        if (result.username && result.name) {
             localStorage.setItem("user-info", JSON.stringify(result))
             loginUser(result); 
             navigate('/')

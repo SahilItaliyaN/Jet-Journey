@@ -14,6 +14,7 @@ import ProtectedRoute from "./component/utility/Protected";
 import SearchF from "./component/SearchF";
 import SearchB from "./component/SearchB";
 import SearchH from "./component/SearchH";
+import ProfilePage from "./component/ProfilePage";
 
 function App() {
   const authuser = useAuthStore((state) => state.user);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/flights" element={<FlightList />} />
           <Route path="/hotelpage" element={<Hotelpage />} />
           <Route path="/buspage" element={<Buspage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

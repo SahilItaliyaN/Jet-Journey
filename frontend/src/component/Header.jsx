@@ -12,7 +12,7 @@ const Header = () => {
             <nav>
                 <ul>
                     <div className="navleft">
-                        <li><Link to="#" className="accbtn"><img src={JJ}  alt='account img'/></Link></li>
+                        <li><Link to="/profile" className="accbtn"><img src={JJ}  alt='account img'/></Link></li>
                         <li><Link to="#" className="navbtn">My Tickets</Link></li>
                     </div>
                     <div className="logo">
