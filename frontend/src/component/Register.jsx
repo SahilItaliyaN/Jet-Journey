@@ -13,6 +13,7 @@ const Register = () => {
     const [gender, setGender] = useState(''); // Gender
     const [username, setUsername] = useState(''); // Username
     const [password, setPassword] = useState('');
+    const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
     const authuser = useAuthStore(state => state.login)
 
@@ -45,6 +46,19 @@ const Register = () => {
             alert("An error occurred. Please try again.");
         }
     };
+
+    const buttonStyle = {   
+        backgroundColor: isHovered ? '#fff3d9' : '#000', // Change background on hover
+        transition: 'background-color 0.3s ease',
+    };
+
+    const linkStyle = {
+        color: isHovered ? '#000' : '#fff3d9', // Change text color based on hover
+        textDecoration: 'none',
+        transition: 'color 0.3s ease',
+    };
+
+
 
     return (
         <div>
@@ -79,8 +93,8 @@ const Register = () => {
                             <input type="text" placeholder="Enter Your Username" onChange={(e) => setUsername(e.target.value)} required />
                             <p>Password</p>
                             <input type="password" placeholder="Enter Your Password" onChange={(e) => setPassword(e.target.value)}  required />
-                            <button onClick={collectData}>
-                                <Link style={{ color: '#ffffff', textDecoration: 'none' }}>REGISTER</Link>
+                            <button onClick={collectData} style={buttonStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} >
+                                <Link style={linkStyle}>REGISTER</Link>
                             </button>
                         </div>
                     </div>

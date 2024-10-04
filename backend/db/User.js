@@ -1,15 +1,3 @@
-// const mongoose = require('mongoose');
-
-// const userSchema = new mongoose.Schema({
-//     name:String,
-//     email:String,
-//     gender:String,
-//     dob:date,
-//     password:String,
-// });
-
-// module.exports = mongoose.model("users",userSchema);
-
 const mongoose = require('mongoose');
 
 // Define the schema for user registration

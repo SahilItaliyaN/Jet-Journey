@@ -9,6 +9,7 @@ const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [isHovered, setIsHovered] = useState(false);
     const navigate = useNavigate();
     const loginUser = useAuthStore((state) => state.login)
 
@@ -39,6 +40,17 @@ const Login = () => {
         }
     }
 
+    const buttonStyle = {   
+        backgroundColor: isHovered ? '#fff3d9' : '#000', // Change background on hover
+        transition: 'background-color 0.3s ease',
+    };
+
+    const linkStyle = {
+        color: isHovered ? '#000' : '#fff3d9', // Change text color based on hover
+        textDecoration: 'none',
+        transition: 'color 0.3s ease',
+    };
+
     return (
         <div>
             <div className='loginform2'>
@@ -61,8 +73,8 @@ const Login = () => {
                             <input type="text" placeholder="Enter Your Username" onChange={(e) => { setUsername(e.target.value) }} />
                             <p>Password</p>
                             <input type="password" placeholder="Enter Your Password" onChange={(e) => { setPassword(e.target.value) }} />
-                            <button onClick={handleLogin}>
-                                <Link style={{ color: '#ffffff', textDecoration: 'none' }} >LOGIN</Link>
+                            <button onClick={handleLogin} style={buttonStyle} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} >
+                                <Link style={linkStyle}>LOGIN</Link>
                             </button>
                         </div>
                     </div>

@@ -1,25 +1,69 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../css/hotelTicket.css';
+import useAuthStore from './store/authstore';
 
 const SearchH = () => {
     const [hotels, setHotels] = useState([]);
-    const { key } = useParams(); 
+    const authuser = useAuthStore(state => state.user); //heve the details of login user and also users object id
+    const { key } = useParams();
 
     const getHotels = async () => {
         try {
             let response = await fetch(`http://localhost:5000/searchhotel/${key}`);
             if (!response.ok) {
-                const errorText = await response.text(); // Get the error text from the response
-                console.error('Error fetching data:', errorText); // Log error text
-                alert('Network response was not ok');
-                return;
+                const errorText = await response.text(); // Get error details from response
+                console.error('Error fetching data:', errorText); // Log the error for debugging
+                alert(`Error: ${errorText || 'Network response was not ok'}`); // Alert user with error message
+                return; // Exit the function if there's an error
             }
             const data = await response.json();
             setHotels(data);
         } catch (error) {
-            console.error('Fetch error:', error);
+            console.log('Fetch error:', error);
             setHotels([]);
+        }
+    }
+
+    const bookRoom = async (hotel) => {
+        try {
+            const ticketData = {
+                user_id: authuser._id, // User ID from the authenticated user
+                ticket_type: 'hotel', // Ticket type
+                ticket_data: {
+                    hotel_name: hotel.hotel_name,
+                    checkin_time: hotel.checkin_time,
+                    checkin_date: hotel.checkin_date,
+                    checkout_time: hotel.checkout_time,
+                    checkout_date: hotel.checkout_date,
+                    nights: hotel.nights,
+                    price: hotel.price,
+                    room_type: hotel.room_type
+                }
+            };
+
+            const response = await fetch('http://localhost:5000/user/ticket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(ticketData), // Send the ticket data as JSON
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Error booking room:', errorText);
+                alert(`Error: ${errorText || 'Unable to book room'}`);
+                return;
+            }
+
+            const result = await response.json();
+            alert('Room booked successfully!'); // Notify the user of success
+            console.log('Booking result:', result); // Log the booking result
+
+        } catch (error) {
+            console.log('Booking error:', error);
+            alert('An error occurred while booking the room.');
         }
     }
 
@@ -29,7 +73,7 @@ const SearchH = () => {
 
     return (
         <div>
-            <h1 style={{ marginLeft: '60px', position: 'absolute' }}>-Hotel Bookings</h1>
+            <h1 style={{ marginLeft: '60px', textAlign: 'center' }}>-Hotel Bookings</h1>
             <div className="hotel-bookingcontainer">
                 {hotels.length > 0 ? (
                     hotels.map((hotel, index) => (
@@ -52,7 +96,12 @@ const SearchH = () => {
                                 </div>
                             </div>
                             <p className="hotel-booking-room">{hotel.room_type}</p>
-                            <button className="hotel-bookingcard-button">Book Room</button>
+                            <button
+                                className="hotel-bookingcard-button"
+                                onClick={() => bookRoom(hotel)} // Fix: Use an arrow function
+                            >
+                                Book Room
+                            </button>
                         </div>
                     ))
                 ) : (
@@ -64,7 +113,3 @@ const SearchH = () => {
 }
 
 export default SearchH;
-
-
-// [eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app » E:\College\sem-5\Jet-journey\frontend\node_modules\eslint-config-react-app\base.js" and "BaseConfig » E:\College\sem-5\Jet-Journey\frontend\node_modules\eslint-config-react-app\base.js".
-// ERROR in [eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app » E:\College\sem-5\Jet-journey\frontend\node_modules\eslint-config-react-app\base.js" and "BaseConfig » E:\College\sem-5\Jet-Journey\frontend\node_modules\eslint-config-react-app\base.js".

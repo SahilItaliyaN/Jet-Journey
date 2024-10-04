@@ -12,4 +12,4 @@ const BusBookingSchema = new mongoose.Schema({
     bus_class: { type: String },              // Bus class (e.g., "Seater")
 });
 
-module.exports = mongoose.model("bus", BusBookingSchema);
+module.exports = mongoose.model("buses", BusBookingSchema);
