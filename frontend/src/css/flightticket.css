@@ -1,0 +1,78 @@
+.ticketcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 100px;
+}
+
+.ticketcard {
+    background-color: #ececec;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 80%;
+    overflow: hidden;
+}
+
+.ticketcard-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline;
+}
+
+.ticketcard-info {
+    margin-top: -20px;
+    font-size: .9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.ticketcard-details {
+    display: flex;
+    align-items: center;
+}
+
+.ticketcard-details p {
+    margin: 0;
+}
+
+.ticket-trip-type {
+    display: flex;
+    font-weight: 700;
+    justify-content: center;
+}
+
+.ticket-class {
+    margin-top: -40px;
+    font-weight: 700;
+}
+
+.ticketcard-price {
+    font-size: 34px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.ticketcard-button {
+    background-color: #000000;
+    color: #fff3d9;
+    padding: 10px 20px;
+    margin-top: -50px;
+    width: 15em;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    float: right;
+    font-weight: bold;
+}
+
+.ticketcard-button:hover {
+    background-color: rgb(46, 46, 46);
+}

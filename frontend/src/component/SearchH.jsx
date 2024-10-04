@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import '../css/hotelTicket.css';
 
 const SearchH = () => {
-
     const [hotels, setHotels] = useState([]);
     const { key } = useParams(); 
 
@@ -27,53 +27,44 @@ const SearchH = () => {
         getHotels();
     }, [key]);
 
-    const style = {
-        color: 'blue',
-        backgroundColor: 'lightgray',
-        padding: '10px',
-        borderRadius: '5px',
-        textAlign: 'center',
-    };
-    const style2 = {
-        border: '2px solid gray',  
-        padding: '5px',
-    };
-
     return (
         <div>
-            <h2>Hotel Booking List</h2>
-            {hotels.length > 0 ? (
-                <table style={style}>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Hotel Name</th>
-                            <th>Arrival Time</th>
-                            <th>Hotel City</th>
-                            <th>Duration</th>
-                            <th>Address</th>
-                            <th>Price ($)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {hotels.map((hotel, index) => (
-                            <tr key={hotel._id} style={style2}>
-                                <td>{index + 1}</td>
-                                <td>{hotel.hotal_name}</td> {/* Consider renaming to hotel_name if possible */}
-                                <td>{new Date(hotel.arrival_time).toLocaleString()}</td>
-                                <td>{hotel.hotal_city}</td> {/* Consider renaming to hotel_city if possible */}
-                                <td>{hotel.duration}</td>
-                                <td>{hotel.address}</td>
-                                <td>{hotel.price.toFixed(2)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <h1>No Results Found</h1>
-            )}
+            <h1 style={{ marginLeft: '60px', position: 'absolute' }}>-Hotel Bookings</h1>
+            <div className="hotel-bookingcontainer">
+                {hotels.length > 0 ? (
+                    hotels.map((hotel, index) => (
+                        <div key={hotel._id} className="hotel-bookingcard">
+                            <h2 className="hotel-bookingcard-title">{hotel.hotel_name}</h2>
+                            <div className="hotel-bookingcard-info">
+                                <div>
+                                    <p className="checkin-time">{hotel.checkin_time}</p>
+                                    <p className="checkin-date">{hotel.checkin_date}</p>
+                                </div>
+                                <div>
+                                    <p className="nights">{hotel.nights}</p>
+                                </div>
+                                <div>
+                                    <p className="checkout-time">{hotel.checkout_time}</p>
+                                    <p className="checkout-date">{hotel.checkout_date}</p>
+                                </div>
+                                <div className="hotel-bookingcard-price">
+                                    ₹{hotel.price.toFixed(2)}
+                                </div>
+                            </div>
+                            <p className="hotel-booking-room">{hotel.room_type}</p>
+                            <button className="hotel-bookingcard-button">Book Room</button>
+                        </div>
+                    ))
+                ) : (
+                    <h1>No Results Found</h1>
+                )}
+            </div>
         </div>
     );
 }
 
 export default SearchH;
+
+
+// [eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app » E:\College\sem-5\Jet-journey\frontend\node_modules\eslint-config-react-app\base.js" and "BaseConfig » E:\College\sem-5\Jet-Journey\frontend\node_modules\eslint-config-react-app\base.js".
+// ERROR in [eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app » E:\College\sem-5\Jet-journey\frontend\node_modules\eslint-config-react-app\base.js" and "BaseConfig » E:\College\sem-5\Jet-Journey\frontend\node_modules\eslint-config-react-app\base.js".
