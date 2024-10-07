@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import FlightBooking from "./component/FlightBooking";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import Homepage from "./component/Homepage";
@@ -25,7 +24,6 @@ function App() {
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Homepage />} />
-          <Route path="/flightbooking" element={<FlightBooking />} />
           <Route path="/hotelpage" element={<Hotelpage />} />
           <Route path="/buspage" element={<Buspage />} />
         </Route>
@@ -36,7 +34,6 @@ function App() {
         <Route path="/searchf/:key" element={<SearchF />} />
         <Route path="/searchh/:key" element={<SearchH />} />
         <Route path="/searchb/:key" element={<SearchB />} />
-        {/* <Route path='/:username' element={<ProfilePage />} /> */}
         {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
       {authuser ? <Footer /> : null}

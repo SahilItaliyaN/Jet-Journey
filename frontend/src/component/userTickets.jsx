@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../css/busticket.css'; // Bus ticket styles
-import '../css/flightticket.css'; // Flight ticket styles
-import '../css/hotelTicket.css'; // Hotel ticket styles
+import '../css/usertickets.css'; // Add your new styles here
 import useAuthStore from './store/authstore';
 
 const UserTickets = () => {
@@ -33,21 +31,21 @@ const UserTickets = () => {
     const renderTable = (ticketType) => {
         const filteredTickets = tickets.filter(ticket => ticket.ticket_type === ticketType);
         return (
-            <table className="ticket-table" style={{ width: '90%', borderCollapse: 'collapse', margin:'30px' }}>
+            <table className="ticket-table">
                 <thead>
                     <tr>
-                        <th style={{ border: '1px solid #ddd', padding: '8px'  }}>{ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} Tickets</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px' }}>Details</th>
+                        <th>{ticketType.charAt(0).toUpperCase() + ticketType.slice(1)} Tickets</th>
+                        <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredTickets.length > 0 ? (
                         filteredTickets.map((ticket) => (
                             <tr key={ticket._id}>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                                <td>
                                     {ticket.ticket_data[ticketType + '_name'] || ticket.ticket_data.flight_number}
                                 </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                                <td>
                                     {ticketType === 'bus' && (
                                         <>
                                             Departure: {ticket.ticket_data.departure_place} at {ticket.ticket_data.departure_time}<br />
@@ -88,7 +86,7 @@ const UserTickets = () => {
 
     return (
         <div>
-            <h1 style={{ textAlign: 'center', margin: '20px 0' }}>My Tickets</h1>
+            <h1>My Tickets</h1>
             <div className="ticket-container">
                 {renderTable('bus')}
                 {renderTable('flight')}

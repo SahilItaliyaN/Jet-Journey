@@ -80,7 +80,7 @@ const SearchF = () => {
     return (
         <div>
             <h1 style={{ marginLeft: '60px' ,textAlign: 'center' }}>-Flight Tickets</h1>
-            <div className="ticketcontainer" style={{ textAlign: 'center' }}>
+            <div className="ticketcontainer">
                 {flights.length > 0 ? (
                     flights.map((flight, index) => (
                         <div className="ticketcard" key={flight.flight_number} style={{ backgroundColor: '#ececec', borderRadius: '10px', padding: '30px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', width: '80%', marginBottom: '30px' }}>

@@ -6,7 +6,16 @@ import Logo from './Images/Logo/logo.svg'
 import JJ from "./Images//Icon/account.svg"
 
 const Header = () => {
-    const [header,setHeader] = useState(false);
+    const [Logout,setLogout] = useState(!localStorage.getItem('user-info'));
+
+    const LogoutHandler = () =>{
+        if(localStorage.getItem('user-info')){
+            localStorage.removeItem('user-info');
+            setLogout(true);
+        }else{
+            setLogout(false);
+        }
+    }
 
   return (
     <div>
@@ -22,8 +31,11 @@ const Header = () => {
                         <Link to="/"><img src={Logo} alt="Jet Journey" /></Link>
                     </div>
                     <div className="navright">
-                        {header ? <li><Link to="login" className="loginbtn">Login</Link></li> : <li><Link onClick={()=>{localStorage.removeItem('user-info')}} to="login" className="loginbtn">Logout</Link></li>}
-                        
+                        {Logout ? (
+                                <li><Link to="/login" className="loginbtn" onClick={LogoutHandler}>Login</Link></li>
+                            ) : (
+                                <li><Link to="/login" className="loginbtn" onClick={LogoutHandler}>Logout</Link></li>
+                        )}
                         <li><Link to="/" className="navbtn">About</Link></li>
                     </div>
                 </ul>

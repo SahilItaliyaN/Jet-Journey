@@ -1,0 +1,41 @@
+/* usertickets.css */
+
+.ticket-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ticket-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-family: Arial, sans-serif;
+}
+
+.ticket-table th, 
+.ticket-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.ticket-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.ticket-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.ticket-table td {
+    vertical-align: top;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif;
+    color: #444;
+}

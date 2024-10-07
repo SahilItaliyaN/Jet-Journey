@@ -104,7 +104,7 @@ const BusTickets = () => {
     return (
         <div>
             <h1 style={{ marginLeft: '60px', textAlign: 'center' }}>- Bus Tickets</h1>
-            <div className="bus-ticketcontainer" style={{ textAlign: 'center' }}>
+            <div className="bus-ticketcontainer" style={{ }}>
                 {bus.length > 0 ? (
                     bus.map((busItem) => (
                         <BusTicketCard

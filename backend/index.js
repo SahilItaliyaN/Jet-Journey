@@ -1,9 +1,7 @@
 const express = require('express');
 require('./db/config');
 const cors = require('cors');
-const path = require('path');
 const User = require('./db/User');
-const Product = require('./db/Product');
 const Flight = require('./db/FlightBooking')
 const Bus = require('./db/BusBooking')
 const Hotel = require('./db/HotalBooking')
@@ -155,52 +153,6 @@ app.post('/login', async (req,res)=>{
     } else {
         res.send({ result: "Email and Password Required" });
     }
-})
-
-
-
-
-// PRODUCT API
-app.post('/add-product', async (req,res)=>{
-    let product = new Product(req.body);
-    let result = await product.save();
-    res.send(result)
-})
-
-app.get('/products',async (req,res)=>{
-    let products = await Product.find()
-    if(products.length>0){
-        res.send(products)
-    }else{
-        res.send({result:"No Products Found"})
-    }
-})
-
-app.delete("/product/:id",async (req,res)=>{
-    const result = await Product.deleteOne({_id:req.params.id})
-    res.send(result)
-});
-
-
-// For get products details
-app.get("/product/:id",async (req,res)=>{
-    let result = await Product.findOne({_id:req.params.id})
-    if(result){
-        res.send(result)
-    }else{
-        res.send({result:"Data Not Found"})
-    }
-})
-
-// For update products
-app.put("/product/:id", async (req,res)=>{
-    let result = await Product.updateOne(
-        { _id : req.params.id },
-        {
-            $set: req.body
-        }
-    )
-    res.send(result);
 })
 
 
