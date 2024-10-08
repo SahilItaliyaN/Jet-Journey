@@ -1,88 +1,132 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import '../css/busticket.css'; // Assuming styles are kept in a separate CSS file
+import '../css/style.css';
+import { useParams } from 'react-router-dom'; // For routing parameters
+import useAuthStore from './store/authstore'; // For accessing authenticated user details
 
-const SearchB = () => {
+// Updated BusTicketCard component to accept the correct props based on the schema
+const BusTicketCard = ({ busName, departureTime, departureCity, totalTime, destinationTime, destinationCity, price, tripType, busClass, onBook }) => {
+    return (
+        <div className="bus-ticketcard">
+            <h2 className="bus-ticketcard-title">{busName}</h2>
+            <div className="bus-ticketcard-info">
+                <div>
+                    <p className="departure-time">{departureTime}</p>
+                    <p className="departure-city">{departureCity}</p>
+                </div>
+                <div>
+                    <p className="total-bus-time">{totalTime}</p>
+                </div>
+                <div>
+                    <p className="destination-time">{destinationTime}</p>
+                    <p className="destination-city">{destinationCity}</p>
+                </div>
+                <div className="bus-ticketcard-price">
+                    ₹{price}
+                </div>
+            </div>
+            <p className="bus-ticket-trip-type">{tripType}</p>
+            <p className="bus-ticket-class">{busClass}</p>
+            <button className="bus-ticketcard-button" onClick={onBook}>Book Bus</button>
+        </div>
+    );
+};
 
+const BusTickets = () => {
     const [bus, setBus] = useState([]);
-    const { key } = useParams(); 
+    const { key } = useParams(); // Get the search key from URL params
+    const authuser = useAuthStore(state => state.user); // Get the details of the logged-in user
 
-    const getbus = async () => {
+    const getBus = async () => {
         try {
             let response = await fetch(`http://localhost:5000/searchbus/${key}`);
-            console.log(response)
-            
-            // Check if the response status is not OK
             if (!response.ok) {
                 const errorText = await response.text(); // Get the error text from the response
-                console.error('Error fetching data:', errorText); // Log error text
+                console.error('Error fetching data:', errorText);
                 alert('Network response was not ok');
                 return;
             }
-            console.log(response)
-            // Parse JSON response
             const data = await response.json();
-            console.log(data)
             setBus(data);
         } catch (error) {
-            // Log the error and show an alert
             console.error('Fetch error:', error);
             setBus([]);
         }
-    }
+    };
+
+    const bookBus = async (busItem) => {
+        try {
+            const ticketData = {
+                user_id: authuser._id, // User ID from the authenticated user
+                ticket_type: 'bus', // Ticket type
+                ticket_data: {
+                    bus_name: busItem.bus_name,
+                    departure_time: busItem.departure_time,
+                    departure_place: busItem.departure_place,
+                    arrival_time: busItem.arrival_time,
+                    arrival_city: busItem.arrival_city,
+                    duration: busItem.duration,
+                    price: busItem.price,
+                    trip_type: busItem.trip_type,
+                    bus_class: busItem.bus_class,
+                }
+            };
+
+            const response = await fetch('http://localhost:5000/user/ticket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(ticketData), // Send the ticket data as JSON
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Error booking bus:', errorText);
+                alert(`Error: ${errorText || 'Unable to book bus'}`);
+                return;
+            }
+
+            const result = await response.json();
+            alert('Bus booked successfully!'); // Notify the user of success
+            console.log('Booking result:', result); // Log the booking result
+
+        } catch (error) {
+            console.error('Booking error:', error);
+            alert('An error occurred while booking the bus.');
+        }
+    };
 
     useEffect(() => {
-        getbus();
-    }, []);
-
-    const style = {
-        color: 'blue',
-        backgroundColor: 'lightgray',
-        padding: '10px',
-        borderRadius: '5px',
-        textAlign: 'center',
-    };
-    const style2 = {
-        border : '2px solid gery',  
-        padding:'5px'
-    }
+        getBus(); // Fetch the bus data on component mount
+    }, [key]);
 
     return (
         <div>
-            <h2>Bus Booking List</h2>
-            {bus.length > 0 ? (
-                <table style={style}>
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Bus Name</th>
-                            <th>Departure Place</th>
-                            <th>Departure Time</th>
-                            <th>Arrival City</th>
-                            <th>Arrival Time</th>
-                            <th>Travel Duration</th>
-                            <th>Price ($)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {bus.map((busItem, index) => (
-                            <tr key={busItem._id} style={style2}>
-                                <td>{index + 1}</td>
-                                <td>{busItem.bus_name}</td>
-                                <td>{busItem.departure_place}</td>
-                                <td>{new Date(busItem.departure_Time).toLocaleString()}</td>
-                                <td>{busItem.arrival_city}</td>
-                                <td>{new Date(busItem.arrival_time).toLocaleString()}</td>
-                                <td>{busItem.flight_duration}</td> {/* Consider renaming this to travel_duration if appropriate */}
-                                <td>{busItem.price.toFixed(2)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <h1>No Results Found</h1>
-            )}
+            <h1 style={{ marginLeft: '60px', textAlign: 'center' }}>- Bus Tickets</h1>
+            <div className="bus-ticketcontainer" style={{ }}>
+                {bus.length > 0 ? (
+                    bus.map((busItem) => (
+                        <BusTicketCard
+                            key={busItem._id}
+                            busName={busItem.bus_name}
+                            departureTime={busItem.departure_time} 
+                            departureCity={busItem.departure_place}
+                            totalTime={busItem.duration} 
+                            destinationTime={busItem.arrival_time} 
+                            destinationCity={busItem.arrival_city}
+                            price={busItem.price}
+                            tripType={busItem.trip_type} 
+                            busClass={busItem.bus_class} 
+                            onBook={() => bookBus(busItem)} // Pass the bus item to the booking function
+                        />
+                    ))
+                ) : (
+                    <h1>No Results Found</h1>
+                )}
+            </div>
         </div>
-    )
-}
+    );
+};
 
-export default SearchB
+export default BusTickets;

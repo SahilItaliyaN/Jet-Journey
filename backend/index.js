@@ -2,138 +2,132 @@ const express = require('express');
 // const multer = require('multer');
 require('./db/config');
 const cors = require('cors');
-const path = require('path');
 const User = require('./db/User');
-const Product = require('./db/Product');
 const Flight = require('./db/FlightBooking')
 const Bus = require('./db/BusBooking')
 const Hotel = require('./db/HotalBooking')
+const UserTicket = require('./db/UserTickets');
 const app = express();
 app.use(express.json())
 app.use(cors())
 
 
-
-// const Upload = multer({dest: 'upload/'});
-
-// const upload = multer({
-//     storage:multer.diskStorage({
-//         destination:function(req,file,cb)
-//         {
-//             cb(null,'public/uploads')
-//         },
-//         filename:function(req,file,cb)
-//         {
-//             cb(null,file.fieldname + '-'+Date.now() + path.extname(file.originalname))
-//         }
-//     })
-// }).single("file")
-
-// app.use(express.static(path.join(__dirname, 'public')));
-
-
-// app.post('/upload',upload,(req,res)=>{
-//     res.send("file upload")
-//     upload(req, res, async (err) => {
-//         if (err) {
-//             return res.status(500).send({ success: false, message: err.message });
-//         }
-//         if (!req.file) {
-//             return res.status(400).send({ success: false, message: 'No file received' });
-//         }
-//         const host = req.get('host');
-//         const filePath = req.protocol + "://" + host + 'public/uploads/' + req.file.filename;
-//         res.send({ success: true, filePath: filePath });
-
-//         const flightid = req.body.flightid; // Example way to pass the product ID
-
-//         if (!flightid) {
-//             return res.status(400).send({ success: false, message: 'Product ID is required' });
-//         }
-
-//         try {
-//             // Update the product with the new file path
-//             let flight =new Flight(req.body)
-//             let result = await flight.save();
-//             result = result.toObject();
-//             res.send(result)
-
-//             let result2 = await Flight.findByIdAndUpdate(
-//                 flightid,
-//                 { imagePath: filePath },
-//                 { new: true } // Return the updated document
-//             );
-            
-//             if (!result2) {
-//                 return res.status(404).send({ success: false, message: 'Product not found' });
-//             }
-
-//             res.send({ success: true, filePath: filePath, product: result });
-//         } catch (error) {
-//             res.status(500).send({ success: false, message: 'Server Error' });
-//         }
-//     });
-// });
-
-app.post("/flight",async (req,res)=>{
-    let flight =new Flight(req.body)
-    let result = await flight.save();
-    result = result.toObject();
-    res.send(result)
-})
-
-app.get('/flightslist',async (req,res)=>{
-    let flights = await Flight.find();
-    if(flights){
-        res.send(flights)
-    }else{
-        res.send({result:"No flights Found"})
-    }
-})
-
-app.get("/searchflight/:key", async(req,res)=>{
+app.post("/user/ticket", async (req, res) => {
     try {
+        const { user_id, ticket_type, ticket_data } = req.body; // Extract data from request body
+
+        // Validate ticket type
+        if (!['flight', 'bus', 'hotel'].includes(ticket_type)) {
+            return res.status(400).send('Invalid ticket type');
+        }
+
+        // Create a new ticket
+        const userTicket = new UserTicket({
+            user_id,
+            ticket_type,
+            ticket_data
+        });
+
+        // Save the ticket to the database
+        const result = await userTicket.save();
+        res.status(201).json(result); // Send response with created ticket
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+app.get("/user/tickets/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params; // Extract userId from request parameters
+
+        // Fetch all tickets associated with the user
+        const userTickets = await UserTicket.find({ user_id: userId });
+
+        if (userTickets.length === 0) {
+            return res.status(404).send('No tickets found for this user'); // Handle case with no tickets
+        }
+
+        res.json(userTickets); // Send the found tickets as response
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error'); // Handle server error
+    }
+});
+
+
+app.get("/searchflight/:key", async (req, res) => {
+    try {
+        // Search for flights that match the provided key
         const result = await Flight.find({
             "$or": [
                 { departure_place: { $regex: req.params.key, $options: 'i' } },
                 { arrival_city: { $regex: req.params.key, $options: 'i' } }
             ]
         });
-        res.json(result);  // Ensure you're sending JSON response
+
+        // If no flights are found, fetch all available flights
+        if (result.length === 0) {
+            const allFlights = await Flight.find(); // Fetch all flights
+            return res.json(allFlights); // Return all flights if no match found
+        }
+
+        console.log(result);
+        res.json(result); // Return the found flights
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-})
+});
 
-app.get("/searchbus/:key", async(req,res)=>{
+
+app.get("/searchbus/:key", async (req, res) => {
     try {
+        // Search for buses that match the provided key
         const result = await Bus.find({
             "$or": [
                 { departure_place: { $regex: req.params.key, $options: 'i' } },
                 { arrival_city: { $regex: req.params.key, $options: 'i' } }
             ]
         });
-        res.json(result);  // Ensure you're sending JSON response
+
+        // If no buses are found, fetch all available buses
+        if (result.length === 0) {
+            const allBuses = await Bus.find(); // Fetch all buses
+            return res.json(allBuses); // Return all buses if no match found
+        }
+
+        console.log(result);
+        res.json(result); // Return the found buses
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-})
+});
 
-app.get("/searchhotel/:key", async(req,res)=>{
+
+app.get("/searchhotel/:key", async (req, res) => {
     try {
-        const result = await Bus.find({
+        // Search for hotels that match the provided key
+        const result = await Hotel.find({
             "$or": [
-                { hotal_city: { $regex: req.params.key, $options: 'i' } }
+                { hotel_city: { $regex: req.params.key, $options: 'i' } }
             ]
         });
-        res.json(result);  // Ensure you're sending JSON response
+
+        // If no hotels are found, fetch all available hotels
+        if (result.length === 0) {
+            const allHotels = await Hotel.find(); // Fetch all hotels
+            return res.json(allHotels); // Return all hotels if no match found
+        }
+
+        console.log(result);
+        res.json(result); // Return the found hotels
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
-})
+});
+
 
 app.post("/register",async(req,res)=>{
     let user = new User(req.body)
@@ -161,7 +155,6 @@ app.post('/login', async (req,res)=>{
         res.send({ result: "Email and Password Required" });
     }
 })
-
 
 
 // PRODUCT API
@@ -222,3 +215,5 @@ app.put("/product/:id", async (req,res)=>{
 app.listen(5000);
 console.log('Database Connected');
 console.log('server Running');
+
+

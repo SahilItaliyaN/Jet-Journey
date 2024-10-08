@@ -1,7 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import FlightBooking from "./component/FlightBooking";
-import FlightList from "./component/FlightList";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import Homepage from "./component/Homepage";
@@ -15,6 +13,8 @@ import SearchF from "./component/SearchF";
 import SearchB from "./component/SearchB";
 import SearchH from "./component/SearchH";
 import ProfilePage from "./component/ProfilePage";
+import UserTickets from "./component/userTickets";
+import UserProfile from "./component/UserProfile";
 
 function App() {
   const authuser = useAuthStore((state) => state.user);
@@ -25,18 +25,17 @@ function App() {
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Homepage />} />
-          <Route path="/flightbooking" element={<FlightBooking />} />
-          <Route path="/flights" element={<FlightList />} />
           <Route path="/hotelpage" element={<Hotelpage />} />
           <Route path="/buspage" element={<Buspage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/myticket" element={<UserTickets />} />
         <Route path="/register" element={<Register />} />
         <Route path="/searchf/:key" element={<SearchF />} />
         <Route path="/searchh/:key" element={<SearchH />} />
         <Route path="/searchb/:key" element={<SearchB />} />
-        {/* <Route path='/:username' element={<ProfilePage />} /> */}
         {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>
       {authuser ? <Footer /> : null}
