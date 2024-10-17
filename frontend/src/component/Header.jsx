@@ -24,11 +24,11 @@ const Header = () => {
             <nav>
                 <ul>
                     <div className="navleft">
-                        <li><Link to="/profile" className="accbtn"><img src={JJ}  alt='account img'/></Link></li>
-                        <li><Link to="/myticket" className="navbtn">My Tickets</Link></li>
+                        <li><Link to={Logout ? "/login" : "/profile"} className="accbtn"><img src={JJ}  alt='account img'/></Link></li>
+                        <li><Link to={Logout ? "/login" : "/myticket"} className="navbtn">My Tickets</Link></li>
                     </div>
                     <div className="logo">
-                        <Link to="/"><img src={Logo} alt="Jet Journey" /></Link>
+                        <Link to={Logout ? "/login" : "/"}><img src={Logo} alt="Jet Journey" /></Link>
                     </div>
                     <div className="navright">
                         {Logout ? (
@@ -36,7 +36,7 @@ const Header = () => {
                             ) : (
                                 <li><Link to="/login" className="loginbtn" onClick={LogoutHandler}>Logout</Link></li>
                         )}
-                        <li><Link to="/" className="navbtn">About</Link></li>
+                        <li><Link to={Logout ? "/login" : "/"} className="navbtn">About</Link></li>
                     </div>
                 </ul>
             </nav>
